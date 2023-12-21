@@ -12,9 +12,12 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-wasi-common = "2.0"
-wasi-cap-std-sync = "2.0"
-wiggle = { version = "2.0", default-features = false, features = ["wiggle_metadata"] }
+wasi-common = { git = "ssh://git@github.com/yagehu/wasmtime.git", branch = "yagehu/wazzi" }
+wasi-cap-std-sync = { git = "ssh://git@github.com/yagehu/wasmtime.git", branch = "yagehu/wazzi" }
+wiggle = { git = "ssh://git@github.com/yagehu/wasmtime.git", branch = "yagehu/wazzi" }
+# wasi-common = { path = "../../../wasmtime/crates/wasi-common" }
+# wasi-cap-std-sync = { path = "../../../wasmtime/crates/wasi-common/cap-std-sync" }
+# wiggle = { path = "../../../wasmtime/crates/wiggle", default-features = false, features = ["wiggle_metadata"] }
 wasmi = { version = "0.32.0-beta.1", path = "../wasmi" }
 
 [dev-dependencies]

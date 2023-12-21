@@ -210,6 +210,12 @@ impl Display for LinkerError {
     }
 }
 
+impl From<LinkerError> for wasi_common::Error {
+    fn from(e: LinkerError) -> Self {
+        Self::trap(e.into())
+    }
+}
+
 /// A symbol representing an interned string.
 ///
 /// # Note

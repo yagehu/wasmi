@@ -57,8 +57,7 @@ macro_rules! impl_add_to_linker_for_funcs {
             linker: &mut Linker<T>,
             wasi_ctx: impl Fn(&mut T) -> &mut U + Send + Sync + Copy + 'static,
         ) -> Result<(), Error>
-        where U: wasi_common::snapshots::preview_1::wasi_snapshot_preview1::WasiSnapshotPreview1 +
-                 wasi_common::snapshots::preview_1::wasi_snapshot_preview1::UserErrorConversion
+        where U: wasi_common::snapshots::preview_1::wasi_snapshot_preview1::WasiSnapshotPreview1
         {
             $(
                 // $(#[$docs])* // TODO: find place for docs
@@ -76,8 +75,7 @@ macro_rules! impl_add_to_linker_for_funcs {
                             let memory = WasmiGuestMemory::new(memory);
                             match wasi_common::snapshots::preview_1::wasi_snapshot_preview1::$fname(ctx, &memory, $($arg,)*).await {
                                 Ok(r) => Ok(<$ret>::from(r)),
-                                Err(wiggle::Trap::String(err)) => Err(wasmi::Error::new(err)),
-                                Err(wiggle::Trap::I32Exit(i)) => Err(wasmi::Error::i32_exit(i)),
+                                Err(err) => Err(wasmi::Error::new(err.to_string()))
                             }
                         };
                         run_in_dummy_executor(result)?
